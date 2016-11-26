@@ -1,7 +1,8 @@
 Enumex
 ============================================================
 
-Enumex is a utility for Enumerator.
+Enumex is a utility to attach preprocessing and postprocessing
+to Enumerator.
 
 Usage
 ------------------------------------------------------------
@@ -14,6 +15,21 @@ extension.post_action.every_once(3).times { puts "sleep" }
 extension.attach_to((1..10).each) do |n|
   puts n
 end
+
+# - 1
+# - 2
+# - 3
+# sleep
+# - 4
+# - 5
+# - 6
+# sleep
+# - 7
+# - 8
+# - 9
+# sleep
+# - 10
+# => 1..10
 ```
 
 ```ruby
