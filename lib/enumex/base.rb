@@ -11,15 +11,8 @@ module Enumex
       actions.empty? ? self : run
     end
 
-    Actions.types.each do |nm|
+    ActionContainers.types.each do |nm|
       define_method "#{nm}_action", -> { actions.public_send(nm) }
-    end
-
-    def run
-      return unless enumerator
-
-      enm = new_enumerator
-      block ? enm.each(&block) : enm
     end
 
     private
@@ -27,7 +20,14 @@ module Enumex
     attr_reader :block
 
     def actions
-      @actions ||= Actions.new(self)
+      @actions ||= ActionContainers.new(self)
+    end
+
+    def run
+      return unless enumerator
+
+      enm = new_enumerator
+      block ? enm.each(&block) : enm
     end
 
     def new_enumerator

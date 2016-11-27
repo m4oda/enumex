@@ -1,5 +1,5 @@
 module Enumex
-  class Actions
+  class ActionContainers
     class << self
       def types
         [:post, :pre]
@@ -14,7 +14,7 @@ module Enumex
       define_method nm, -> do
         name = "@#{nm}"
         v = instance_variable_get(name)
-        v ? v : instance_variable_set(name, Action.new(base))
+        v ? v : instance_variable_set(name, ActionContainer.new(base))
       end
     end
 
