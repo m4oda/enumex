@@ -2,20 +2,6 @@ require 'forwardable'
 require 'enumex/version'
 
 module Enumex
-  # Enumex.attach_to([1, 2, 3, 4, 5].each) {|n|
-  #   puts n
-  # }.every_once(3).times {
-  #   puts "\n"
-  # }
-  #
-  # enm = Enumex.every_once(3).times do
-  #   "\n"
-  # end
-  #
-  # enum.attach_to([1, 2, 3, 4, 5].each) do |n|
-  #   puts n
-  # end
-
   autoload :Base, 'enumex/base'
   autoload :Action, 'enumex/action'
   autoload :Actions, 'enumex/actions'
@@ -38,7 +24,7 @@ module Enumex
   end
 
   refine Object do
-    define_method :enumex, ->(enumerator = nil, &block) do
+    define_method :enumex, ->(enumerator=nil, &block) do
       Enumex.new(enumerator, &block)
     end
   end

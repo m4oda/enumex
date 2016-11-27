@@ -3,6 +3,8 @@ module Enumex
     attr_reader :enumerator, :extenders
 
     def attach_to(enumerator, &block)
+      raise TypeError unless enumerator.is_a?(Enumerator)
+
       @enumerator = enumerator
       @block = block
 
@@ -14,15 +16,10 @@ module Enumex
     end
 
     def run
-      actions.reset
+      return unless enumerator
 
-      enumerator.each do |*args|
-        actions.pre.extenders.any? {|ext| ext.execute(*args) }
-
-        block.call(*args).tap do |result|
-          actions.post.extenders.each {|ext| ext.execute(*args) }
-        end
-      end
+      enm = new_enumerator
+      block ? enm.each(&block) : enm
     end
 
     private
@@ -31,6 +28,18 @@ module Enumex
 
     def actions
       @actions ||= Actions.new(self)
+    end
+
+    def new_enumerator
+      Enumerator.new do |y|
+        actions.reset
+        enumerator.each do |*args|
+          actions.pre.extenders.each {|e| e.execute(*args) }
+          result = y.yield(*args)
+          actions.post.extenders.each {|e| e.execute(*args) }
+          result
+        end
+      end
     end
   end
 end
