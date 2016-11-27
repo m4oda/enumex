@@ -21,7 +21,7 @@ module Enumex
         executor.block = block
         base.extenders << self if block_given?
 
-        base.enumerator ? base.run : base
+        base.enumerator ? base.attach_to(base.enumerator, &base.block) : base
       end
 
       private

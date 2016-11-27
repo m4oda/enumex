@@ -3,7 +3,7 @@ module Enumex
     class EveryTimeExtender
       Port = Module.new do
         def every_time(&block)
-          EveryTimeExtender.new(self, &block).value
+          EveryTimeExtender.new(self, &block).instance_eval { evaluate }
         end
       end
 
@@ -11,7 +11,6 @@ module Enumex
         @base = base
         @block = block
         base.extenders << self if block_given?
-        base.enumerator ? base.run : base
       end
 
       def reset
@@ -21,13 +20,13 @@ module Enumex
         block.call(*args) if block
       end
 
-      def value
-        base.enumerator ? base.run : base
-      end
-
       private
 
       attr_reader :base, :block
+
+      def evaluate
+        base.enumerator ? base.attach_to(base.enumerator, &base.block) : base
+      end
     end
   end
 end

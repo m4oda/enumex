@@ -1,6 +1,6 @@
 module Enumex
   class Base
-    attr_reader :enumerator, :extenders
+    attr_reader :enumerator
 
     def attach_to(enumerator, &block)
       raise TypeError unless enumerator.is_a?(Enumerator)

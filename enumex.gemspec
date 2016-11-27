@@ -5,8 +5,8 @@ Gem::Specification.new do |gem|
   gem.version       = Enumex::VERSION
   gem.authors       = ['m4oda']
   gem.email         = 'e5ww2sze@gmail.com'
-  gem.description   = 'Enumex is a utility for Enumerator.'
-  gem.summary       = 'Enumex is a utility for Enumerator.'
+  gem.description   = 'Enumex is a utility to attach preprocessing and postprocessing to Enumerator.'
+  gem.summary       = 'Enumex is a utility to attach preprocessing and postprocessing to Enumerator.'
   gem.homepage      = 'https://github.com/m4oda/enumex'
   gem.license       = 'MIT'
   gem.require_paths = ['lib']
