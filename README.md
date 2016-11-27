@@ -41,3 +41,17 @@ enumex((1..10).each) {|n|
   puts "sleep"
 }
 ```
+
+```ruby
+using Enumex
+
+enumex.post_action.every_once(3).times {
+  print "Fizz"
+}.every_once(5).times {
+  print "Buzz"
+}.every_time {
+  print "\n"
+}.attach_to((1..100).each) do |n|
+  print "#{n}: "
+end
+```
